@@ -8,6 +8,11 @@ import sys
 from cookiecutter.main import cookiecutter
 
 
+THIS_DIRECTORY = os.path.abspath(os.path.dirname(__file__))
+COOKIECUTTER_TEMPLATE_PATH = os.path.join(THIS_DIRECTORY, "./cookiecutter_template")
+DISPUTE_DIRECTORY_NAME_PREFIX = "dispute_"
+
+
 def main():
     command_line_arguments = parse_command_line_arguments()
     extra_context = create_extra_context(command_line_arguments)
@@ -18,7 +23,7 @@ def parse_command_line_arguments():
     argument_parser = argparse.ArgumentParser()
     argument_parser.add_argument(
         "--template",
-        default="./cookiecutter_template"
+        default=COOKIECUTTER_TEMPLATE_PATH
     )
     argument_parser.add_argument(
         "--dispute-name",
@@ -29,13 +34,18 @@ def parse_command_line_arguments():
 
 
 def get_default_dispute_name():
-    directory_name_pattern = re.compile(r"^dispute_\d+$")
+    directory_name_pattern = re.compile(
+        r"^{}\d+$".format(DISPUTE_DIRECTORY_NAME_PREFIX)
+    )
     directory_sequence_numbers = [
         int(x[x.index("_") + 1:])
-        for x in os.listdir(os.path.dirname(__file__))
+        for x in os.listdir(THIS_DIRECTORY)
         if os.path.isdir(x) and directory_name_pattern.match(x)
     ]
-    return "dispute_{}".format(max(directory_sequence_numbers or [0]) + 1)
+    return "{}{}".format(
+        DISPUTE_DIRECTORY_NAME_PREFIX,
+        max(directory_sequence_numbers or [0]) + 1
+    )
 
 
 def create_extra_context(command_line_arguments):
@@ -46,9 +56,8 @@ def create_extra_context(command_line_arguments):
 
 
 def get_glfw_include_directory(command_line_arguments):
-    directory_of_this_file = os.path.abspath(os.path.dirname(__file__))
     return os.path.join(
-        directory_of_this_file,
+        THIS_DIRECTORY,
         command_line_arguments.dispute_name,
         "build/glfw-src/include"
     )
