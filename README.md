@@ -1,5 +1,5 @@
 # opengl_disputes
-Host warious OpenGL examples.
+Host various OpenGL examples.
 
 # Create a new dispute (a.k.a. project)
 ```
@@ -9,6 +9,6 @@ opengl_disputes % cd the_box
 the_box % mkdir build
 the_box % cd build
 build % cmake ..
-build % make the_box
+build % make
 build % ./the_box
 ```
