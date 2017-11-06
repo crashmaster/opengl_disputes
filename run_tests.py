@@ -22,7 +22,7 @@ def extract_commands_from_readme_md():
 
 def execute_commands(commands_in_readme_md):
     for command in commands_in_readme_md:
-        subprocess.Popen(command, shell=True).communicate()
+        subprocess.check_call(command, shell=True)
 
 
 if __name__ == "__main__":
