@@ -1,0 +1,5 @@
+language: generic
+os:
+  - linux
+sudo: false
+script: /bin/echo hello
