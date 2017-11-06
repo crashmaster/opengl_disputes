@@ -17,6 +17,10 @@ def main():
     command_line_arguments = parse_command_line_arguments()
     extra_context = create_extra_context(command_line_arguments)
     call_cookiecutter(command_line_arguments, extra_context)
+    print("\nCreated new OpenGL-Dispute: {}\n".format(
+            os.path.join(THIS_DIRECTORY, extra_context["opengl_dispute_name"])
+        )
+    )
 
 
 def parse_command_line_arguments():
