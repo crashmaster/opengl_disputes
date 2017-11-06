@@ -3,3 +3,7 @@ os:
   - linux
 sudo: false
 script: python3 ./run_tests.py
+addons:
+  apt:
+    packages:
+      - python-tox
