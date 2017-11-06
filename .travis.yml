@@ -2,4 +2,4 @@ language: generic
 os:
   - linux
 sudo: false
-script: /bin/echo hello
+script: python3 ./run_tests.py

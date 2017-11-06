@@ -3,9 +3,8 @@ Host various OpenGL examples.
 
 # Create a new dispute (a.k.a. project)
 ```
-opengl_disputes % make new_dispute
-opengl_dispute_name [the_box]: <HIT ENTER>
-opengl_disputes % cd the_box
+opengl_disputes % DISPUTE_NAME=test_dispute make
+opengl_disputes % cd test_dispute
 the_box % mkdir build
 the_box % cd build
 build % cmake ..
