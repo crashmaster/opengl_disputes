@@ -3,7 +3,7 @@ language: python
 python:
   - "3.5"
 
-script: python3 ./run_tests.py
+script: ./run_tests.py
 
 addons:
   apt:
