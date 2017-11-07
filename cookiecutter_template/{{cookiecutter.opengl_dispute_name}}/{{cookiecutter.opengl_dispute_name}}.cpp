@@ -1,5 +1,7 @@
 #include <iostream>
 
+#include <boost/program_options.hpp>
+
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
