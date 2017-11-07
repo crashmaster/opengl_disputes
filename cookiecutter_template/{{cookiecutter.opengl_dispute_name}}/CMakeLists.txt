@@ -31,4 +31,5 @@ add_executable(
 target_link_libraries(
     {{cookiecutter.opengl_dispute_name}}
         glfw
+        boost_program_options
 )
