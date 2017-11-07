@@ -18,6 +18,11 @@ add_subdirectory(
     ${glfw_BINARY_DIR}
 )
 
+include_directories(
+    include
+)
+
+
 add_executable(
     {{cookiecutter.opengl_dispute_name}}
     {{cookiecutter.opengl_dispute_name}}.cpp
