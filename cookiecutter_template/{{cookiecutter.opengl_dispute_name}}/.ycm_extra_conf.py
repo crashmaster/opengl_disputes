@@ -1,17 +1,12 @@
-import os
-import ycm_core
-
-FLAGS = [
-    "-Werror",
-    "-Weverything",
-    "-fexceptions",
-    "-std=c++14",
-    "-x", "c++",
-    "-I", "{{cookiecutter.glfw_include_directory}}",
-]
-
-
 def FlagsForFile(filename, **kwargs):
     return {
-        "flags": FLAGS,
+        "flags": [
+            "-Werror",
+            "-Weverything",
+            "-Wno-c++98-compat-pedantic",
+            "-fexceptions",
+            "-std=c++14",
+            "-x", "c++",
+            "-I", "{{cookiecutter.glfw_include_directory}}",
+        ]
     }
