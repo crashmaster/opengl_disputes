@@ -54,15 +54,51 @@ void act_on_set_command_line_options(
 }
 
 
+void process_input(GLFWwindow *window) {
+  if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+    glfwSetWindowShouldClose(window, true);
+  }
+}
+
+
+void on_resize(GLFWwindow* window, int width, int height) {
+  glViewport(0, 0, width, height);
+}
+
+
 int main(int argc, char* argv[]) {
   std::cout << "OpenGL Dispute: {{cookiecutter.opengl_dispute_name}}" << std::endl;
 
   process_command_line_options(argc, argv);
 
   glfwInit();
+
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
+  GLFWwindow* window = glfwCreateWindow(800, 600, "{{cookiecutter.opengl_dispute_name}}", NULL, NULL);
+  if (window == NULL) {
+    std::cout << "Failed to create GLFW window" << std::endl;
+    glfwTerminate();
+    return -1;
+  }
+  glfwMakeContextCurrent(window);
+  glfwSetFramebufferSizeCallback(window, on_resize);
+
+  if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+    std::cout << "Failed to initialize GLAD" << std::endl;
+    glfwTerminate();
+    return -1;
+  }
+
+  while (!glfwWindowShouldClose(window)) {
+    process_input(window);
+
+    glfwSwapBuffers(window);
+    glfwPollEvents();
+  }
+
+  glfwTerminate();
   return 0;
 }
