@@ -1,6 +1,7 @@
 #include "{{cookiecutter.opengl_dispute_name}}.hpp"
 
 #include <iostream>
+#include <stdexcept>
 
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
@@ -61,8 +62,56 @@ void process_input(GLFWwindow *window) {
 }
 
 
+void set_up_opengl_window(void) {
+  initialize_the_glfw_library();
+  set_opengl_version();
+  window = create_opengl_window();
+  make_opengl_context_current_of_window(window);
+  set_on_resize_callback();
+  initialize_glad_extension_loader_library();
+}
+
+
+void initialize_the_glfw_library(void) {
+  glfwInit();
+}
+
+
+void set_opengl_version(void) {
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+}
+
+
+GLFWwindow* create_opengl_window(void) {
+  auto window = glfwCreateWindow(800, 600, "{{cookiecutter.opengl_dispute_name}}", NULL, NULL);
+  if (window == NULL) {
+    throw std::runtime_error("Failed to create GLFW window");
+  }
+  return window;
+}
+
+
+void make_opengl_context_current_of_window(GLFWwindow*) {
+  glfwMakeContextCurrent(window);
+}
+
+
 void on_resize(GLFWwindow* window, int width, int height) {
   glViewport(0, 0, width, height);
+}
+
+
+void set_on_resize_callback() {
+  glfwSetFramebufferSizeCallback(glfwGetCurrentContext(), on_resize);
+}
+
+
+void initialize_glad_extension_loader_library(void) {
+  if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+    throw std::runtime_error("Failed to initialize GLAD");
+  }
 }
 
 
@@ -70,27 +119,7 @@ int main(int argc, char* argv[]) {
   std::cout << "OpenGL Dispute: {{cookiecutter.opengl_dispute_name}}" << std::endl;
 
   process_command_line_options(argc, argv);
-
-  glfwInit();
-
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-  GLFWwindow* window = glfwCreateWindow(800, 600, "{{cookiecutter.opengl_dispute_name}}", NULL, NULL);
-  if (window == NULL) {
-    std::cout << "Failed to create GLFW window" << std::endl;
-    glfwTerminate();
-    return -1;
-  }
-  glfwMakeContextCurrent(window);
-  glfwSetFramebufferSizeCallback(window, on_resize);
-
-  if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-    std::cout << "Failed to initialize GLAD" << std::endl;
-    glfwTerminate();
-    return -1;
-  }
+  GLFWwindow* window = set_up_opengl_window();
 
   while (!glfwWindowShouldClose(window)) {
     process_input(window);

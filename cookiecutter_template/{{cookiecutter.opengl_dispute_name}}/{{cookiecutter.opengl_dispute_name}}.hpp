@@ -1,3 +1,7 @@
+//#ifndef {{cookiecutter.opengl_dispute_name|upper}}_HPP
+//#define {{cookiecutter.opengl_dispute_name|upper}}_HPP
+
+
 #include <boost/program_options.hpp>
 
 
@@ -20,3 +24,6 @@ po::variables_map parse_command_line_options(
 void act_on_set_command_line_options(
   const po::variables_map& variables_map
 );
+
+
+//#endif
