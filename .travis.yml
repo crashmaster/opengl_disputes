@@ -13,4 +13,4 @@ addons:
       - libxrandr-dev
 
 install: pip install tox-travis
-script: ./run_tests.py
+script: make run_tests

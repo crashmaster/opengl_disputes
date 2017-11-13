@@ -5,6 +5,6 @@ Host various OpenGL examples.
 
 # Create a new dispute (a.k.a. project)
 ```
-opengl_disputes % DISPUTE_NAME=test_dispute make
-opengl_disputes % cd test_dispute && make
+opengl_disputes % DISPUTE_NAME=<DISPUTE_NAME> make
+opengl_disputes % cd <DISPUTE_NAME> && make
 ```

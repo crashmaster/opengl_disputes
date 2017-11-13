@@ -1,10 +1,8 @@
 #include "{{cookiecutter.opengl_dispute_name}}.hpp"
 
+#include <cstdlib>
 #include <iostream>
 #include <stdexcept>
-
-#include "glad/glad.h"
-#include "GLFW/glfw3.h"
 
 
 int process_command_line_options(
@@ -18,7 +16,7 @@ int process_command_line_options(
 }
 
 
-po::options_description add_generic_options() {
+po::options_description add_generic_options(void) {
   po::options_description options("Generic options");
 
   options.add_options()
@@ -51,6 +49,7 @@ void act_on_set_command_line_options(
 ) {
   if (variables_map.count("version")) {
     std::cout << "Version 1.0" << std::endl;
+    std::exit(EXIT_SUCCESS);
   }
 }
 
@@ -62,17 +61,18 @@ void process_input(GLFWwindow *window) {
 }
 
 
-void set_up_opengl_window(void) {
-  initialize_the_glfw_library();
+GLFWwindow* set_up_opengl_window(void) {
+  initialize_glfw_library();
   set_opengl_version();
-  window = create_opengl_window();
+  GLFWwindow* window = create_opengl_window();
   make_opengl_context_current_of_window(window);
-  set_on_resize_callback();
+  set_on_resize_callback(window);
   initialize_glad_extension_loader_library();
+  return window;
 }
 
 
-void initialize_the_glfw_library(void) {
+void initialize_glfw_library(void) {
   glfwInit();
 }
 
@@ -93,7 +93,7 @@ GLFWwindow* create_opengl_window(void) {
 }
 
 
-void make_opengl_context_current_of_window(GLFWwindow*) {
+void make_opengl_context_current_of_window(GLFWwindow* window) {
   glfwMakeContextCurrent(window);
 }
 
@@ -103,8 +103,8 @@ void on_resize(GLFWwindow* window, int width, int height) {
 }
 
 
-void set_on_resize_callback() {
-  glfwSetFramebufferSizeCallback(glfwGetCurrentContext(), on_resize);
+void set_on_resize_callback(GLFWwindow* window) {
+  glfwSetFramebufferSizeCallback(window, on_resize);
 }
 
 
