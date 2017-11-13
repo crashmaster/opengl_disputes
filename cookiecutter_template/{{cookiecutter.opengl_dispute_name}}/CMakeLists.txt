@@ -28,8 +28,9 @@ include_directories(
 
 add_executable(
     {{cookiecutter.opengl_dispute_name}}
-    {{cookiecutter.opengl_dispute_name}}.cpp
     glad.c
+    {{cookiecutter.opengl_dispute_name}}.cpp
+    {{cookiecutter.opengl_dispute_name}}_command_line_options.cpp
 )
 
 target_link_libraries(
