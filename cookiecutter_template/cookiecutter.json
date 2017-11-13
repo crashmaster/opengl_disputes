@@ -1,4 +1,5 @@
 {
+    "glad_include_directory": "",
     "glfw_include_directory": "",
     "opengl_dispute_name": ""
 }

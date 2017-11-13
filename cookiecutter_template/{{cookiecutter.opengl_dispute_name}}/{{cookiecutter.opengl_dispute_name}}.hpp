@@ -1,5 +1,5 @@
-#ifndef {{cookiecutter.opengl_dispute_name|upper}}_HPP
-#define {{cookiecutter.opengl_dispute_name|upper}}_HPP
+#ifndef {{cookiecutter.opengl_dispute_name|upper}}_HPP_
+#define {{cookiecutter.opengl_dispute_name|upper}}_HPP_
 
 
 #include <boost/program_options.hpp>

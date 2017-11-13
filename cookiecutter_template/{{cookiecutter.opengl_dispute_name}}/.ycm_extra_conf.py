@@ -8,5 +8,6 @@ def FlagsForFile(filename, **kwargs):
             "-std=c++14",
             "-x", "c++",
             "-I", "{{cookiecutter.glfw_include_directory}}",
+            "-I", "{{cookiecutter.glad_include_directory}}",
         ]
     }

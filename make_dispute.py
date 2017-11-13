@@ -54,9 +54,18 @@ def get_default_dispute_name():
 
 def create_extra_context(command_line_arguments):
     return {
+        "glad_include_directory": get_glad_include_directory(command_line_arguments),
         "glfw_include_directory": get_glfw_include_directory(command_line_arguments),
         "opengl_dispute_name": command_line_arguments.dispute_name,
     }
+
+
+def get_glad_include_directory(command_line_arguments):
+    return os.path.join(
+        THIS_DIRECTORY,
+        command_line_arguments.dispute_name,
+        "include"
+    )
 
 
 def get_glfw_include_directory(command_line_arguments):
