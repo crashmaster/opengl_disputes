@@ -31,6 +31,8 @@ add_executable(
     glad.c
     {{cookiecutter.opengl_dispute_name}}.cpp
     {{cookiecutter.opengl_dispute_name}}_command_line_options.cpp
+    {{cookiecutter.opengl_dispute_name}}_main_loop.cpp
+    {{cookiecutter.opengl_dispute_name}}_opengl_window.cpp
 )
 
 target_link_libraries(
