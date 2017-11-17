@@ -22,17 +22,17 @@ add_subdirectory(
 )
 
 include_directories(
-    include
+    glad/include
 )
 
 
 add_executable(
     {{cookiecutter.opengl_dispute_name}}
-    glad.c
-    {{cookiecutter.opengl_dispute_name}}.cpp
-    {{cookiecutter.opengl_dispute_name}}_command_line_options.cpp
-    {{cookiecutter.opengl_dispute_name}}_main_loop.cpp
-    {{cookiecutter.opengl_dispute_name}}_opengl_window.cpp
+    glad/src/glad.c
+    src/{{cookiecutter.opengl_dispute_name}}.cpp
+    src/{{cookiecutter.opengl_dispute_name}}_command_line_options.cpp
+    src/{{cookiecutter.opengl_dispute_name}}_main_loop.cpp
+    src/{{cookiecutter.opengl_dispute_name}}_opengl_window.cpp
 )
 
 target_link_libraries(
