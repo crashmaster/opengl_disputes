@@ -1,4 +1,6 @@
 BUILD_DIRECTORY := build
+export CC := /usr/bin/clang
+export CXX := /usr/bin/clang++
 
 .DEFAULT_GOAL := execute_dispute
 
