@@ -64,7 +64,7 @@ def get_glad_include_directory(command_line_arguments):
     return os.path.join(
         THIS_DIRECTORY,
         command_line_arguments.dispute_name,
-        "include"
+        "glad/include"
     )
 
 
