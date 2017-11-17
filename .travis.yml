@@ -1,16 +1,25 @@
 sudo: false
 
-language: python
+language: generic
+
 python:
   - "3.5"
 
 addons:
   apt:
+    sources:
+      - ubuntu-toolchain-r-test
+      - llvm-toolchain-precise-3.8
     packages:
+      - clang-3.8
       - libboost-program-options-dev
       - libxcursor-dev
       - libxinerama-dev
       - libxrandr-dev
+
+env:
+  - CC=clang-3.8
+  - CXX=clang++-3.8
 
 install: pip install tox-travis
 script: make run_tests
