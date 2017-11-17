@@ -24,7 +24,7 @@ namespace {
   }
 
 
-  po::options_description add_generic_options(
+  po::options_description add_command_line_options(
     void
   ) {
     po::options_description options("Generic options");
@@ -59,7 +59,7 @@ int process_command_line_options(
   int argc,
   const char* const argv[]
 ) {
-  auto options = add_generic_options();
+  auto options = add_command_line_options();
   auto variables_map = parse_command_line_options(argc, argv, options);
   act_on_set_command_line_options(variables_map);
   return 0;
