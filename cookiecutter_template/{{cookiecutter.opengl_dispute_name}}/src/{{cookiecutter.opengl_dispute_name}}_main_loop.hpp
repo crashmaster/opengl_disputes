@@ -11,9 +11,4 @@ void main_loop(
 );
 
 
-void process_input(
-  GLFWwindow* window
-);
-
-
 #endif

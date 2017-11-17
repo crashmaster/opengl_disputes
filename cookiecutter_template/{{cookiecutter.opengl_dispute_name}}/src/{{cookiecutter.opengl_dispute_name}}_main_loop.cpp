@@ -1,13 +1,16 @@
 #include "{{cookiecutter.opengl_dispute_name}}_main_loop.hpp"
 
 
-void process_input(
-  GLFWwindow *window
-) {
-  if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-    glfwSetWindowShouldClose(window, true);
+namespace {
+  void process_input(
+    GLFWwindow *window
+  ) {
+    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+      glfwSetWindowShouldClose(window, true);
+    }
   }
 }
+
 
 void main_loop(
   GLFWwindow *window

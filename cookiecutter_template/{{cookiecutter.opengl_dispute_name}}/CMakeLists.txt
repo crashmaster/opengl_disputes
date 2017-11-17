@@ -29,8 +29,8 @@ include_directories(
 add_executable(
     {{cookiecutter.opengl_dispute_name}}
     glad/src/glad.c
-    src/{{cookiecutter.opengl_dispute_name}}.cpp
     src/{{cookiecutter.opengl_dispute_name}}_command_line_options.cpp
+    src/{{cookiecutter.opengl_dispute_name}}_main.cpp
     src/{{cookiecutter.opengl_dispute_name}}_main_loop.cpp
     src/{{cookiecutter.opengl_dispute_name}}_opengl_window.cpp
 )
