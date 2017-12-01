@@ -20,6 +20,7 @@ help:
 	@echo "usage:"
 	@echo "  make help                        display this help"
 	@echo "  make [create_new_dispute]        create a new project"
+	@echo "  make run_tests                   run test project"
 
 remove_previous_test_dispute:
 	@rm -rf ${TEST_DISPUTE_NAME}
