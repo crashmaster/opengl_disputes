@@ -40,8 +40,8 @@ int main(
 ) {
   process_command_line_options(argc, argv);
   initialize_glfw_library();
-  initialize_glad_extension_loader_library();
   GLFWwindow* window = create_opengl_window();
+  initialize_glad_extension_loader_library();
   main_loop(window);
   destruct_glfw_library();
   return 0;
