@@ -28,5 +28,5 @@ install: pip install tox-travis
 script: make run_tests
 
 after_success:
-  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
-    docker push crashmaster/opengl_disputes
+  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
+    docker push crashmaster/opengl_disputes;
