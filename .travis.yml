@@ -24,4 +24,9 @@ env:
   - CC=clang-3.8 CXX=clang++-3.8
 
 install: pip install tox-travis
+
 script: make run_tests
+
+after_success:
+  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+    docker push crashmaster/opengl_disputes

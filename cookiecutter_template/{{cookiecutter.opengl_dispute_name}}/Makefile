@@ -3,7 +3,7 @@ USER := $(shell id -u)
 GROUP := $(shell id -g)
 IMAGE_NAME := crashmaster/opengl_disputes
 
-DOCKER_BUILD := docker build --force-rm=true --tag=${IMAGE_NAME} .
+DOCKER_BUILD := docker build --pull --force-rm=true --tag=${IMAGE_NAME} .
 DOCKER_VOLUME := --volume=${PWD}:/{{cookiecutter.opengl_dispute_name}}
 DOCKER_USER := --user=${USER}:${GROUP}
 DOCKER_AUTOREMOVE_CONTAINER := --rm=true
