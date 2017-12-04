@@ -25,7 +25,6 @@ include_directories(
     glad/include
 )
 
-
 add_executable(
     {{cookiecutter.opengl_dispute_name}}
     glad/src/glad.c

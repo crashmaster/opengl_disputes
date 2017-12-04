@@ -26,7 +26,7 @@ remove_previous_test_dispute:
 	@rm -rf ${TEST_DISPUTE_NAME}
 
 run_tests: remove_previous_test_dispute compile_test_dispute
-	@cd ${TEST_DISPUTE_NAME} && ./build/${TEST_DISPUTE_NAME} --version
+	@cd ${TEST_DISPUTE_NAME} && make print_dispute_version
 
 
 .PHONY: \

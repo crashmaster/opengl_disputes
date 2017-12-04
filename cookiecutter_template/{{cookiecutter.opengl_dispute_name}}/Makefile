@@ -13,6 +13,8 @@ DOCKER_RUN := docker run ${DOCKER_RUN_OPTIONS} ${IMAGE_NAME} bash -c
 COMPILE_DISPUTE := "cd /{{cookiecutter.opengl_dispute_name}}/build && make"
 MAKE_BUILD_DIRECTORY := "mkdir -p /{{cookiecutter.opengl_dispute_name}}/build"
 MAKE_MAKE := "cd /{{cookiecutter.opengl_dispute_name}}/build && cmake .."
+EXECUTE_DISPUTE := "cd /{{cookiecutter.opengl_dispute_name}}/build && ./{{cookiecutter.opengl_dispute_name}}"
+PRINT_DISPUTE_VERSION := "cd /{{cookiecutter.opengl_dispute_name}}/build && ./{{cookiecutter.opengl_dispute_name}} --version"
 
 export CC := clang
 export CXX := clang++
@@ -29,7 +31,7 @@ execute_dispute: compile_dispute
 	@echo
 	@echo "Execute OpenGL Dispute: {{cookiecutter.opengl_dispute_name}}"
 	@echo
-	@./${BUILD_DIRECTORY}/{{cookiecutter.opengl_dispute_name}}
+	@${DOCKER_RUN} ${EXECUTE_DISPUTE}
 
 help:
 	@echo "usage:"
@@ -44,10 +46,14 @@ make_build_directory: docker_build
 make_make: make_build_directory
 	@${DOCKER_RUN} ${MAKE_MAKE}
 
+print_dispute_version: compile_dispute
+	@${DOCKER_RUN} ${PRINT_DISPUTE_VERSION}
+
 .PHONY: \
 	compile_dispute \
 	docker_build \
 	execute_dispute \
 	help \
 	make_build_directory \
-	make_make
+	make_make \
+	print_dispute_version
