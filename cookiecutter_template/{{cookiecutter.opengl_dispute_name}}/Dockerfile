@@ -11,3 +11,5 @@ RUN apt-get update && apt-get install --yes \
     libxrandr-dev \
     make \
     mesa-common-dev
+
+RUN ls -la /usr/lib/x86_64-linux-gnu

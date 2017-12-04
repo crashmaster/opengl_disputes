@@ -3,11 +3,12 @@ USER := $(shell id -u)
 GROUP := $(shell id -g)
 IMAGE_NAME := crashmaster/opengl_disputes
 
-DOCKER_BUILD := docker build --tag=${IMAGE_NAME} .
+DOCKER_BUILD := docker build --force-rm=true --tag=${IMAGE_NAME} .
 DOCKER_VOLUME := --volume=${PWD}:/{{cookiecutter.opengl_dispute_name}}
 DOCKER_USER := --user=${USER}:${GROUP}
-DOCKER_OPTIONS := ${DOCKER_VOLUME} ${DOCKER_USER}
-DOCKER_RUN := docker run ${DOCKER_OPTIONS} ${IMAGE_NAME} bash -c
+DOCKER_AUTOREMOVE_CONTAINER := --rm=true
+DOCKER_RUN_OPTIONS := ${DOCKER_AUTOREMOVE_CONTAINER} ${DOCKER_VOLUME} ${DOCKER_USER}
+DOCKER_RUN := docker run ${DOCKER_RUN_OPTIONS} ${IMAGE_NAME} bash -c
 
 COMPILE_DISPUTE := "cd /{{cookiecutter.opengl_dispute_name}}/build && make"
 MAKE_BUILD_DIRECTORY := "mkdir -p /{{cookiecutter.opengl_dispute_name}}/build"
