@@ -13,7 +13,7 @@ check_existence_of_tox:
 
 create_new_dispute: call_cookiecutter_using_tox
 
-create_test_dispute:
+create_test_dispute: remove_previous_test_dispute
 	@DISPUTE_NAME=${TEST_DISPUTE_NAME} tox
 
 help:
