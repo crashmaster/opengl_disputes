@@ -11,4 +11,5 @@ RUN apt-get update && apt-get install --yes \
     libxrandr-dev \
     make \
     mesa-common-dev \
+    mesa-utils \
     x11-apps
