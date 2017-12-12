@@ -9,9 +9,10 @@ DOCKER_INTERACTIVE := --tty=true --interactive=true
 DOCKER_USER := --user=${USER}:${GROUP}
 DOCKER_VOLUMES := --volume=${PWD}:/{{cookiecutter.opengl_dispute_name}} --volume=/tmp/.X11-unix:/tmp/.X11-unix
 
-DOCKER_BUILD := docker build --pull --force-rm=true --tag=${IMAGE_NAME} .
 DOCKER_RUN_OPTIONS := ${DOCKER_AUTOREMOVE_CONTAINER} ${DOCKER_ENV} ${DOCKER_INTERACTIVE} ${DOCKER_USER} ${DOCKER_VOLUMES}
-DOCKER_RUN := docker run ${DOCKER_RUN_OPTIONS} ${IMAGE_NAME}
+
+DOCKER_BUILD_COMMAND := docker build --pull --force-rm=true --tag=${IMAGE_NAME} .
+DOCKER_RUN_COMMAND := docker run ${DOCKER_RUN_OPTIONS} ${IMAGE_NAME}
 
 DOCKER_SHELL := bash
 COMPILE_DISPUTE := bash -c "cd /{{cookiecutter.opengl_dispute_name}}/build && make"
@@ -26,19 +27,19 @@ export CXX := clang++
 .DEFAULT_GOAL := execute_dispute
 
 compile_dispute: make_make
-	@${DOCKER_RUN} ${COMPILE_DISPUTE}
+	@${DOCKER_RUN_COMMAND} ${COMPILE_DISPUTE}
 
-docker_build:
-	@${DOCKER_BUILD}
+build_docker:
+	@${DOCKER_BUILD_COMMAND}
 
-docker_shell: docker_build
-	@${DOCKER_RUN} ${DOCKER_SHELL}
+docker_shell: build_docker
+	@${DOCKER_RUN_COMMAND} ${DOCKER_SHELL}
 
 execute_dispute: compile_dispute
 	@echo
 	@echo "Execute OpenGL Dispute: {{cookiecutter.opengl_dispute_name}}"
 	@echo
-	@${DOCKER_RUN} ${EXECUTE_DISPUTE}
+	@${DOCKER_RUN_COMMAND} ${EXECUTE_DISPUTE}
 
 help:
 	@echo "usage:"
@@ -47,18 +48,18 @@ help:
 	@echo "  make help                        display this help"
 	@echo "  make make_make                   create Makefiles with CMake"
 
-make_build_directory: docker_build
-	@${DOCKER_RUN} ${MAKE_BUILD_DIRECTORY}
+make_build_directory: build_docker
+	@${DOCKER_RUN_COMMAND} ${MAKE_BUILD_DIRECTORY}
 
 make_make: make_build_directory
-	@${DOCKER_RUN} ${MAKE_MAKE}
+	@${DOCKER_RUN_COMMAND} ${MAKE_MAKE}
 
 print_dispute_version: compile_dispute
-	@${DOCKER_RUN} ${PRINT_DISPUTE_VERSION}
+	@${DOCKER_RUN_COMMAND} ${PRINT_DISPUTE_VERSION}
 
 .PHONY: \
+	build_docker \
 	compile_dispute \
-	docker_build \
 	execute_dispute \
 	help \
 	make_build_directory \
