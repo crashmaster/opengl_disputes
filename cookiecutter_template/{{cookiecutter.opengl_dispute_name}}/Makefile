@@ -3,18 +3,22 @@ USER := $(shell id -u)
 GROUP := $(shell id -g)
 IMAGE_NAME := crashmaster/opengl_disputes
 
-DOCKER_BUILD := docker build --pull --force-rm=true --tag=${IMAGE_NAME} .
-DOCKER_VOLUME := --volume=${PWD}:/{{cookiecutter.opengl_dispute_name}}
-DOCKER_USER := --user=${USER}:${GROUP}
 DOCKER_AUTOREMOVE_CONTAINER := --rm=true
-DOCKER_RUN_OPTIONS := ${DOCKER_AUTOREMOVE_CONTAINER} ${DOCKER_VOLUME} ${DOCKER_USER}
-DOCKER_RUN := docker run ${DOCKER_RUN_OPTIONS} ${IMAGE_NAME} bash -c
+DOCKER_ENV := --env DISPLAY=${DISPLAY}
+DOCKER_INTERACTIVE := --tty=true --interactive=true
+DOCKER_USER := --user=${USER}:${GROUP}
+DOCKER_VOLUMES := --volume=${PWD}:/{{cookiecutter.opengl_dispute_name}} --volume=/tmp/.X11-unix:/tmp/.X11-unix
 
-COMPILE_DISPUTE := "cd /{{cookiecutter.opengl_dispute_name}}/build && make"
-MAKE_BUILD_DIRECTORY := "mkdir -p /{{cookiecutter.opengl_dispute_name}}/build"
-MAKE_MAKE := "cd /{{cookiecutter.opengl_dispute_name}}/build && cmake .."
-EXECUTE_DISPUTE := "cd /{{cookiecutter.opengl_dispute_name}}/build && ./{{cookiecutter.opengl_dispute_name}}"
-PRINT_DISPUTE_VERSION := "cd /{{cookiecutter.opengl_dispute_name}}/build && ./{{cookiecutter.opengl_dispute_name}} --version"
+DOCKER_BUILD := docker build --pull --force-rm=true --tag=${IMAGE_NAME} .
+DOCKER_RUN_OPTIONS := ${DOCKER_AUTOREMOVE_CONTAINER} ${DOCKER_ENV} ${DOCKER_INTERACTIVE} ${DOCKER_USER} ${DOCKER_VOLUMES}
+DOCKER_RUN := docker run ${DOCKER_RUN_OPTIONS} ${IMAGE_NAME}
+
+DOCKER_SHELL := bash
+COMPILE_DISPUTE := bash -c "cd /{{cookiecutter.opengl_dispute_name}}/build && make"
+EXECUTE_DISPUTE := bash -c "cd /{{cookiecutter.opengl_dispute_name}}/build && ./{{cookiecutter.opengl_dispute_name}}"
+MAKE_BUILD_DIRECTORY := bash -c "mkdir -p /{{cookiecutter.opengl_dispute_name}}/build"
+MAKE_MAKE := bash -c "cd /{{cookiecutter.opengl_dispute_name}}/build && cmake .."
+PRINT_DISPUTE_VERSION := bash -c "cd /{{cookiecutter.opengl_dispute_name}}/build && ./{{cookiecutter.opengl_dispute_name}} --version"
 
 export CC := clang
 export CXX := clang++
@@ -26,6 +30,9 @@ compile_dispute: make_make
 
 docker_build:
 	@${DOCKER_BUILD}
+
+docker_shell: docker_build
+	@${DOCKER_RUN} ${DOCKER_SHELL}
 
 execute_dispute: compile_dispute
 	@echo

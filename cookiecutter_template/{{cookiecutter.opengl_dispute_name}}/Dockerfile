@@ -10,4 +10,5 @@ RUN apt-get update && apt-get install --yes \
     libxinerama-dev \
     libxrandr-dev \
     make \
-    mesa-common-dev
+    mesa-common-dev \
+    x11-apps
